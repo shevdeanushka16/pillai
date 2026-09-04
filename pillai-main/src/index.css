@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-canvas: #F7F7F5;
+    --text-primary: #171717;
+    --text-secondary: #6B6B67;
+    --border-color: #E4E4E0;
+    --orbit-accent: #315CFF;
+    --status-safe: #247A52;
+    --status-warning: #B7791F;
+    --status-high: #C65D2E;
+    --status-critical: #B83232;
+  }
+
+  html, body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F7F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #D0D0C8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B0B0A8;
+}
+
+/* Clean table styling */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Subtle pulse animation for active routes (calm, not neon) */
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.animate-flow-calm {
+  stroke-dasharray: 6 6;
+  animation: flowDash 3s linear infinite;
+}
+
+.animate-flow-fast {
+  stroke-dasharray: 6 4;
+  animation: flowDash 1.2s linear infinite;
+}
+
+.animate-flow-optimized {
+  stroke-dasharray: 8 6;
+  animation: flowDash 2.2s linear infinite;
+}
