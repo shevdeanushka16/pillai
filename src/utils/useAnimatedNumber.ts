@@ -1,18 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 /**
- * Lightweight number transition hook for smooth metric count-ups
+ * Lightweight number transition hook for smooth metric count-ups.
+ * Uses a ref to snapshot the animation start value, preventing stale
+ * closure bugs when targetValue changes rapidly (e.g. surge → optimized).
  */
 export function useAnimatedNumber(targetValue: number, durationMs = 600): number {
   const [displayValue, setDisplayValue] = useState(targetValue);
+  // Snapshot the value AT ANIMATION START via ref, not captured from state
+  const startValueRef = useRef(targetValue);
 
   useEffect(() => {
-    let startTimestamp: number | null = null;
-    const initialValue = displayValue;
+    const initialValue = startValueRef.current;
     const difference = targetValue - initialValue;
 
     if (difference === 0) return;
 
+    let startTimestamp: number | null = null;
     let animationFrameId: number;
 
     const step = (timestamp: number) => {
@@ -27,9 +31,12 @@ export function useAnimatedNumber(targetValue: number, durationMs = 600): number
         animationFrameId = requestAnimationFrame(step);
       } else {
         setDisplayValue(targetValue);
+        startValueRef.current = targetValue;
       }
     };
 
+    // Update ref immediately so the NEXT animation starts from here
+    startValueRef.current = targetValue;
     animationFrameId = requestAnimationFrame(step);
 
     return () => {

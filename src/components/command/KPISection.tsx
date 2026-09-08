@@ -4,7 +4,7 @@ import { Users, Bus, Building, ArrowUpRight } from 'lucide-react';
 import { useAnimatedNumber } from '../../utils/useAnimatedNumber';
 
 export const KPISection: React.FC = () => {
-  const { metrics, simulationState } = useApp();
+  const { metrics, simulationState, currentEvent } = useApp();
 
   const isSurge = simulationState === 'surge';
   const isOptimized = simulationState === 'optimized';
@@ -59,26 +59,24 @@ export const KPISection: React.FC = () => {
               {animatedTransport}%
             </span>
             <span
-              className={`text-xs font-mono font-bold uppercase ${
-                metrics.transportLoad >= 80
+              className={`text-xs font-mono font-bold uppercase ${metrics.transportLoad >= 80
                   ? 'text-critical'
                   : metrics.transportLoad >= 60
-                  ? 'text-warning'
-                  : 'text-safe'
-              }`}
+                    ? 'text-warning'
+                    : 'text-safe'
+                }`}
             >
               {metrics.transportLoad >= 80 ? 'CRITICAL' : metrics.transportLoad >= 60 ? 'HIGH' : 'OPTIMAL'}
             </span>
           </div>
           <div className="w-full bg-[#EBEBE6] h-1.5 rounded-full overflow-hidden mt-1.5">
             <div
-              className={`h-full transition-all duration-500 ${
-                metrics.transportLoad >= 80
+              className={`h-full transition-all duration-500 ${metrics.transportLoad >= 80
                   ? 'bg-critical'
                   : metrics.transportLoad >= 60
-                  ? 'bg-high'
-                  : 'bg-safe'
-              }`}
+                    ? 'bg-high'
+                    : 'bg-safe'
+                }`}
               style={{ width: `${animatedTransport}%` }}
             />
           </div>
@@ -97,26 +95,24 @@ export const KPISection: React.FC = () => {
               {animatedHotels}%
             </span>
             <span
-              className={`text-xs font-mono font-bold uppercase ${
-                metrics.hotelOccupancy >= 85
+              className={`text-xs font-mono font-bold uppercase ${metrics.hotelOccupancy >= 85
                   ? 'text-critical'
                   : metrics.hotelOccupancy >= 70
-                  ? 'text-high'
-                  : 'text-safe'
-              }`}
+                    ? 'text-high'
+                    : 'text-safe'
+                }`}
             >
               {metrics.hotelOccupancy >= 85 ? 'SATURATED' : 'AVAILABLE'}
             </span>
           </div>
           <div className="w-full bg-[#EBEBE6] h-1.5 rounded-full overflow-hidden mt-1.5">
             <div
-              className={`h-full transition-all duration-500 ${
-                metrics.hotelOccupancy >= 85
+              className={`h-full transition-all duration-500 ${metrics.hotelOccupancy >= 85
                   ? 'bg-critical'
                   : metrics.hotelOccupancy >= 70
-                  ? 'bg-high'
-                  : 'bg-safe'
-              }`}
+                    ? 'bg-high'
+                    : 'bg-safe'
+                }`}
               style={{ width: `${animatedHotels}%` }}
             />
           </div>
@@ -128,33 +124,31 @@ export const KPISection: React.FC = () => {
             <span className="text-[11px] font-mono uppercase tracking-wider">
               VENUE CAPACITY
             </span>
-            <span className="text-[10px] font-mono text-secondary">65k SEATS</span>
+            <span className="text-[10px] font-mono text-secondary">{Math.round(currentEvent.capacity / 1000)}k SEATS</span>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-bold font-mono tracking-tight text-primary">
               {animatedVenue}%
             </span>
             <span
-              className={`text-xs font-mono font-bold uppercase ${
-                metrics.venueCapacity >= 90
+              className={`text-xs font-mono font-bold uppercase ${metrics.venueCapacity >= 90
                   ? 'text-critical'
                   : metrics.venueCapacity >= 75
-                  ? 'text-high'
-                  : 'text-safe'
-              }`}
+                    ? 'text-high'
+                    : 'text-safe'
+                }`}
             >
               {metrics.venueCapacity >= 90 ? 'GATE BOTTLENECK' : 'BALANCED'}
             </span>
           </div>
           <div className="w-full bg-[#EBEBE6] h-1.5 rounded-full overflow-hidden mt-1.5">
             <div
-              className={`h-full transition-all duration-500 ${
-                metrics.venueCapacity >= 90
+              className={`h-full transition-all duration-500 ${metrics.venueCapacity >= 90
                   ? 'bg-critical'
                   : metrics.venueCapacity >= 75
-                  ? 'bg-high'
-                  : 'bg-safe'
-              }`}
+                    ? 'bg-high'
+                    : 'bg-safe'
+                }`}
               style={{ width: `${animatedVenue}%` }}
             />
           </div>
